@@ -1,0 +1,254 @@
+/* Styles for bookmarklet
+ * Must inherit main.css first */
+
+body {
+	background: #DDECF5 url(../images/bm-bkgd.png) left top repeat-x;
+}
+
+#page {
+	width: 560px;
+	margin: 0 auto;
+	padding: 8px 0 0;
+}
+
+#header {
+	height: 80px;
+}
+
+#logo {
+	float: left;
+}
+
+#loggedin {
+	float: right;
+	color: #C8D5DE;
+	padding-top: 14px;
+	text-align: right;
+}
+
+#loggedin strong {
+	color: #C8D5DE;
+}
+
+#loggedin a:link, #loggedin a:visited {
+	color: #fff;
+}
+
+#loggedin a:hover {
+	color: #C8D5DE;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	width: 100%;
+}
+
+th {
+	width: 150px;
+	vertical-align: top;
+	font-weight: normal;
+	color: #222;
+	text-align: right;
+	border-bottom-width: 0;
+	padding-right: 6px;
+}
+
+th label {
+	display: inline-block;
+	padding-top: 4px;
+}
+
+td {
+	vertical-align: top;
+	border-bottom-width: 0;
+	padding-left: 0;
+}
+
+td input.text {
+	width: 350px;
+}
+
+.researcher input.text, .grant input.text, .publication input.text {
+	width: 260px;
+}
+
+.researcher td, .grant td, .publication td {
+	padding-bottom: 7px;
+}
+
+.flag td {
+	padding-left: 4px;
+}
+
+
+.description textarea {
+	width: 350px;
+}
+
+a.del:link, a.del:visited {
+	display: inline-block;
+	background: transparent url(../images/icon-del.png) left center no-repeat;
+	padding-left: 14px;
+	color: #5A7687;
+	margin-left: 4px;
+}
+
+a.del:hover {
+	color: #D1461F;
+}
+
+a.add:link, a.add:visited {
+	display: inline-block;
+	background: transparent url(../images/icon-plus.png) left center no-repeat;
+	padding-left: 14px;
+}
+
+a.flagoff:link, a.flagoff:visited {
+	display: inline-block;
+	background: transparent url(../images/icon-flagoff-form.png) left center no-repeat;
+	padding-left: 24px;
+}
+
+a.flagenabled:link, a.flagenabled:visited {
+	background-image: url(../images/icon-flagon-form.png);
+}
+
+td p.note {
+	margin: 0;
+	color: #859093;
+}
+
+p.info {
+	background-color: #FCCC65;
+	color: #4D3400;
+	padding: 2px 7px;
+}
+
+p.info a:link, p.info a:visited {
+	color: #4D3400;
+}
+
+p.info a:hover {
+	color: #D1461F;
+}
+
+tr.error, tr.error td {
+	background-color: #FCCC65;
+}
+
+tr.error th {
+	color: #4D3400;
+	font-weight: bold;
+	background: #FCCC65 url(../images/icon-error-arrow.png) left center no-repeat;
+}
+
+tr.error th label {
+	padding-left: 30px;
+}
+
+#classify {
+	padding-top: 14px;
+	width: 100%;
+	overflow: auto;
+	padding-bottom: 14px;
+}
+
+#classify ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+ul#categories {
+	float: left;
+	width: 50%;
+}
+
+ul#categories li {
+	margin: 0 0 4px;
+	padding: 1px 7px;
+}
+
+ul#categories li.ui-state-active {
+	background: #fff;
+	border-bottom: 1px solid #9BA8B0;
+}
+
+ul#categories li.ui-state-active a {
+	color: #444;
+	text-decoration: none;
+}
+
+ul#categories span.count {
+	background: #5D717D;
+	color: #fff;
+	padding: 0 6px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#options {
+	min-height: 17em;
+	height: auto !important;
+	height: 17em;
+	margin-left: 50%;
+	background: #fff;
+	border-bottom: 1px solid #9BA8B0;
+	padding: 14px;
+}
+
+#options ul {
+	padding: 7px;
+	background: #eee;
+	margin: 0;
+}
+
+#actions {
+	clear: both;
+	text-align: center;
+	padding: 14px 0 21px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	vertical-align: middle;
+}
+
+a.cancel:link, a.cancel:visited {
+	color: #5A7687;
+}
+
+a.cancel:hover {
+	color: #D1461F;
+}
+
+#actions input.btn {
+	font-weight: bold;
+	display: inline-block;
+	margin-right: 4px;
+	padding: 4px 20px;
+	vertical-align: middle;
+}
+
+#footer {
+	background: transparent;
+	font-size: 0.928571em;
+	color: #859093;
+	padding: 7px 0;
+	margin: 0;
+}
+
+/* Checkbox flag style */
+
+.flagged: { background: url('../images/icon-flag-on.png') }
+
+/* Tabs -- taken from jquery
+----------------------------------*/
+
+.ui-tabs .ui-tabs-hide { display: none !important; }
+

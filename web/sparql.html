@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head><title>SPARQLer</title>
+  <link rel="stylesheet" type="text/css" href="StyleSheets/joseki.css" />
+  </head>
+
+  <body>
+    <h1>SPARQLer - General purpose processor</h1>
+
+    <div class="moreindent">
+
+      <form action="annotation/query/annotations" method="get">
+	<p>General SPARQL query : input query, set any options and press "Get Results"</p>
+	<p>
+	  <textarea style="background-color: #F0F0F0;" name="query" cols="70" rows="20">
+prefix aiiso:  <http://purl.org/vocab/aiiso/schema#>
+prefix foaf:   <http://xmlns.com/foaf/0.1/>
+prefix proj:   <http://vocab.ouls.ox.ac.uk/projectfunding#>
+prefix dc:     <http://purl.org/dc/terms/>
+prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl:    <http://www.w3.org/2002/07/owl#>
+prefix closed: <http://vocab.bris.ac.uk/rr/closed#>
+prefix rr:     <http://vocab.bris.ac.uk/resrev#>
+prefix rel:    <http://purl.org/vocab/relationship/>
+
+select *
+{
+    graph ?g { }
+}
+limit 5
+	  </textarea><br />
+	  <input type="submit" value="Get Results" />
+	</p>
+      </form>
+    </div>
+
+    <hr/>
+
+  </body>
+</html>

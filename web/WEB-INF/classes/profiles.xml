@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles>
+    <profile id="Impact" type="http://vocab.bris.ac.uk/resrev#ResearchImpact">
+        <profileEntry id="rdftype"
+                      objectDatatype="Resource"
+                      propertyType="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                      required="true" />
+        <profileEntry id="title"
+                      propertyType="http://purl.org/dc/terms/title"
+                      required="true" />
+        <profileEntry id="abstract"
+                      propertyType="http://purl.org/dc/terms/description"
+                      required="true" />
+        <!-- TODO: Split or index the keywords -->
+        <profileEntry id="keywords"
+                      propertyType="http://purl.org/dc/elements/1.1/subject"
+                      required="false" />
+        <profileEntry id="researcherid"
+                      objectDatatype="Resource"
+                      propertyType="http://vocab.bris.ac.uk/resrev#associatedResearcher"
+                      required="true" />
+        <!-- Not needed, bit broken since name doesn't refer to id -->
+        <profileEntry id="researchername"
+                      propertyType="http://vocab.bris.ac.uk/resrev#associatedResearcherName"
+                      required="true" />
+
+        <profileEntry id="grantid"
+                      objectDatatype="Resource"
+                      propertyType="http://vocab.bris.ac.uk/resrev#associatedGrant"
+                      required="false" />
+
+        <profileEntry id="grantname"
+                      propertyType="http://vocab.bris.ac.uk/resrev#associatedGrantName"
+                      required="false" />
+
+        <profileEntry id="pubid"
+                       objectDatatype="Resource"
+                       propertyType="http://vocab.bris.ac.uk/resrev#associatedPublication"
+                       required="false" />
+
+         <profileEntry id="pubname"
+                       propertyType="http://vocab.bris.ac.uk/resrev#associatedPublicationTitle"
+                       required="false" />
+
+        <profileEntry id="classification"
+                      objectDatatype="Resource"
+                      propertyType="http://purl.org/dc/terms/subject"
+                      required="true" />
+                      
+        <profileEntry id="flagged"
+                       propertyType="http://vocab.bris.ac.uk/resrev#flagged"
+                       required="false" />
+    </profile>
+
+</profiles>
