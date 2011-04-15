@@ -4,9 +4,9 @@ then
     exit 1;
 fi
 
-cp caboto.war caboto-rr.war
+cp caboto.war reftool.war
 
 cd web
-jar uf ../caboto-rr.war *
+jar uf ../reftool.war *
 
 echo All done! > /dev/stderr
