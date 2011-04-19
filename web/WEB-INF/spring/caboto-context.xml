@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="org.caboto"/>
+
+    <!-- repository gives access to the profile of allowed annotations -->
+    <bean id="profileRepository" class="org.caboto.profile.ProfileRepositoryXmlImpl">
+        <constructor-arg index="0" value="profiles.xml"/>
+    </bean>
+
+    <!-- factory creates SDB stores: provides access to the RDF store -->
+
+    <bean id="database" class="org.caboto.jena.db.impl.SDBDatabase">
+        <constructor-arg index="0" value="/sdb.ttl"/>
+    </bean>
+
+    <!-- DAO class for creating and retrieving annotations -->
+
+    <bean id="annotationDao" class="org.caboto.dao.AnnotationDaoImpl" scope="prototype">
+        <constructor-arg index="0" ref="profileRepository"/>
+        <constructor-arg index="1" ref="database"/>
+    </bean>
+
+    <!-- utility class for converting RDF annotations to JSON -->
+
+    <bean id="jsonSupport" class="org.caboto.CabotoJsonSupport"/>
+
+    <!-- SECURITY -->
+
+    <!-- gate keeper : authority on who can see what -->
+
+    <bean id="gatekeeper" class="org.caboto.security.spring.GateKeeperImpl">
+        <constructor-arg index="0" value="ROLE_ADMIN"/>
+    </bean>
+
+    <!-- aop implementation to filter results -->
+
+    <bean id="exitGuard" class="org.caboto.security.spring.ExitGuard">
+        <constructor-arg index="0" ref="gatekeeper"/>
+    </bean>
+
+    <bean id="annotationDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="org.caboto.dao.AnnotationDao"/>
+        <property name="interceptorNames" value="exitGuard"/>
+        <property name="target" ref="annotationDao"/>
+    </bean>
+
+    <!-- HTTP restrictions -->
+
+    <security:http access-decision-manager-ref="decisionManager" path-type="regex"
+                   lowercase-comparisons="false">
+        <security:http-basic/>
+        <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS"/>
+        <security:intercept-url pattern="^.*/public/.*$" method="POST" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="^.*/public/.*$" method="DELETE" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="^.*/private/.*$" method="GET" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="^.*/private/.*$" method="POST" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="^.*/private/.*$" method="DELETE" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="^.*/secured/.*$" method="GET" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern=".*" method="GET" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    </security:http>
+
+    <!-- default authentication provider -->
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="mike" password="potato" authorities="ROLE_USER"/>
+                <security:user name="damian" password="carrot" authorities="ROLE_USER"/>
+                <security:user name="jasper" password="turnip" authorities="ROLE_USER"/>
+                <security:user name="nikki" password="pea" authorities="ROLE_USER"/>
+                <security:user name="simon" password="radish" authorities="ROLE_USER"/>
+                <security:user name="andrew" password="onion" authorities="ROLE_USER"/>
+                <security:user name="admin" password="boss" authorities="ROLE_USER,ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <!-- voter for resources -->
+
+    <bean id="resourceVoter" class="org.caboto.security.spring.ResourceAccessDecisionVoter">
+        <constructor-arg index="0" ref="gatekeeper"/>
+        <constructor-arg index="1" value="annotation"/>
+    </bean>
+
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+
+    <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+
+    <!-- custom decision manager -->
+
+    <bean id="decisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+        <property name="allowIfAllAbstainDecisions" value="true"/>
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter"/>
+                <ref local="authenticatedVoter"/>
+                <ref local="resourceVoter"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
