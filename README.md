@@ -27,6 +27,8 @@ to create `reftool.war`. This will merge in the REFTool specific parts into cabo
 
 Finally drag [this bookmarklet][bookmark] to you bookmark bar. When you find a web page you want to add as evidence of impact just hit the reftool button.
 
+    javascript:(function(){f='http://localhost:8080/reftool/index.jsp?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&';a=function(){if(!window.open(f+'noui=1&jump=doclose','RR-bookmark','location=yes,links=no,scrollbars=yes,toolbar=no,width=600,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()
+
 ## Further integration work ##
 
 As noted above, adding your own authentication can be done using [Spring Security](http://static.springsource.org/spring-security/site/).
